@@ -154,8 +154,11 @@ namespace crow
             {
                 if (!req_.headers.count("host"))
                 {
-                    is_invalid_request = true;
-                    res = response(400);
+                    // @kai added this line to accept requests without a host
+                    // URL for compatibility with tyro terminals. 
+                    req_.add_header("Host", req_.url);
+                    //is_invalid_request = true;
+                    //res = response(400);
                 }
                 else if (req_.upgrade)
                 {
